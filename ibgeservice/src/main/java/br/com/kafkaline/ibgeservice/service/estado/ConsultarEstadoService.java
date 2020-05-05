@@ -9,6 +9,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.header.internals.RecordHeader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.kafka.requestreply.ReplyingKafkaTemplate;
 import org.springframework.kafka.requestreply.RequestReplyFuture;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -31,6 +32,7 @@ public class ConsultarEstadoService {
     @Value("${kafka.topic.requestreply-topic}")
     private String requestReplyTopic;
 
+    @Cacheable(value = "estado principal")
     public EstadoList execute() throws JsonProcessingException, ExecutionException, InterruptedException {
         //Convertendo objeto para string
         ObjectMapper mapper = new ObjectMapper();

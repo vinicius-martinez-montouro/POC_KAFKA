@@ -4,12 +4,14 @@ import br.com.poc.kafkaline.ibgewrapper.gateway.feign.EstadoClient;
 import br.com.poc.kafkaline.ibgewrapper.gateway.json.EstadoJson;
 import feign.Feign;
 import feign.gson.GsonDecoder;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class ConsultaEstadoService {
 
+    @Cacheable(value = "estado")
     public List<EstadoJson> execute(){
         EstadoClient estadoClient = Feign.builder()
                                     .decoder(new GsonDecoder())

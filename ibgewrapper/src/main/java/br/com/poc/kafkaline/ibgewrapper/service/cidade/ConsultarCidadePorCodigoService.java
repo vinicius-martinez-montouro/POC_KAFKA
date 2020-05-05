@@ -4,6 +4,7 @@ import br.com.poc.kafkaline.ibgewrapper.gateway.feign.CidadeClient;
 import br.com.poc.kafkaline.ibgewrapper.gateway.json.CidadeJson;
 import feign.Feign;
 import feign.gson.GsonDecoder;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Service
 public class ConsultarCidadePorCodigoService {
 
+    @Cacheable(value = "cidade")
     public List<CidadeJson> execute(String estado){
         CidadeClient cidadeClient = Feign.builder()
                 .decoder(new GsonDecoder())
